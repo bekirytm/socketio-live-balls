@@ -6,8 +6,8 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/semantic/dist/semantic.min.css')
 
-
-  body
+  //Burada App'i belirtiyoruz.
+  body(ng-app="app")
     block content
 
 
@@ -18,3 +18,5 @@ html
 
   block javascripts
     script(src="/angular/angular.min.js")
+    script(src="/javascripts/main.js")
+    script(src="/javascripts/indexController.js")
