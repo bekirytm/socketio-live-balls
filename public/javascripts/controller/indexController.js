@@ -1,4 +1,4 @@
-app.controller('indexController' ,'indexFactory', ['$scope' , ($scope , indexFactory) => {        //Bunu da sayfamıza dahil ediyoruz.(layout.pug)
+app.controller('indexController' , ['$scope' , 'indexFactory', ($scope , indexFactory) => {        //Bunu da sayfamıza dahil ediyoruz.(layout.pug)
 
     const connectOptions = {
         connectionAttempts: 3,
@@ -12,3 +12,5 @@ app.controller('indexController' ,'indexFactory', ['$scope' , ($scope , indexFac
             console.log(err);
         });
 }]);
+
+

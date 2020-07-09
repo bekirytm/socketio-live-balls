@@ -1,4 +1,4 @@
-const app = angular.module('app' , []);     //Angular Modülü
+const app = angular.module('app' , []);
 
 
 //layout.pug'a ekleyeceğiz.
