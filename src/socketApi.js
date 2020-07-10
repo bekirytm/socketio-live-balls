@@ -25,9 +25,12 @@ io.on('connection' , (socket) => {
         //Burada iki farklı objeyi birleştiriyoruz. (kullanıcıdan gelen username , default veriler )
         const userData = Object.assign(data , defaultData);
         users.push(userData);   //Bu array'in içine attık.
-        console.log(users);
+
+        socket.broadcast.emit('newUser' , userData );   //Kullanıcı giriş yaptığında diğerlerine söyleme işlemi
+
     });
 
 });
 
 module.exports = socketApi;
+
