@@ -6,11 +6,10 @@ const io = socketio();
 const socketApi = { };
 socketApi.io = io;
 
-const users = [ ];
+const users = { };
 
 io.on('connection' , (socket) => {
     console.log("Bir kullanıcı bağlandı");
-
 
     socket.on('newUser' , (data) => {   //Burası yeni kullanıcı geldiğinde kaydetme yeri.(username,socket.id,position)
         const defaultData = {
@@ -21,15 +20,23 @@ io.on('connection' , (socket) => {
             }
         };
 
-
         //Burada iki farklı objeyi birleştiriyoruz. (kullanıcıdan gelen username , default veriler )
         const userData = Object.assign(data , defaultData);
-        users.push(userData);   //Bu array'in içine attık.
+        users[socket.id] = userData;   //Bu array'in içine attık.
+        console.log(users);
 
-        socket.broadcast.emit('newUser' , userData );   //Kullanıcı giriş yaptığında diğerlerine söyleme işlemi
-
+        socket.broadcast.emit('newUser' , users[socket.id] );   //Kullanıcı giriş yaptığında diğerlerine söyleme işlemi
+        socket.emit('initPlayers' , users); //O kullanıcıya mesaj gönderme
     });
 
+
+    //Kullanıcının ayrılası durumunda diğer kullanıcılara emit işlemi
+    socket.on('disconnect' , () => {
+        socket.broadcast.emit('disUser' , users[socket.id]);
+        delete users[socket.id];
+
+        console.log(users);
+    });
 });
 
 module.exports = socketApi;
