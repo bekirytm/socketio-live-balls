@@ -56,10 +56,25 @@ app.controller('indexController' , ['$scope' , 'indexFactory', ($scope , indexFa
                     $scope.$apply();
                 });
 
+
+                //Animations
+                let animate = false;
+                $scope.onClickPlayer = ($event) => {
+                    if(!animate){
+                        animate = true;
+                        $('#'+ socket.id).animate({'left': $event.offsetX , 'top': $event.offsetY } , () => {
+                            animate = false;
+                        });
+                    }
+
+
+                };
+
+
             }).catch((err) => {
                 console.log(err);
             });
-    };
+    }
 }]);
 
 
