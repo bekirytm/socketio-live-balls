@@ -58,13 +58,23 @@ app.controller('indexController' , ['$scope' , 'indexFactory', ($scope , indexFa
                     $scope.$apply();
                 });
 
+                //Animate Karşılama
+                socket.on('animate' , (data) => {
+                    $('#'+ data.socketId).animate({'left': data.x , 'top': data.y } , () => {
+                        animate = false;
+                    });
+                });
 
                 //Animations
                 let animate = false;
                 $scope.onClickPlayer = ($event) => {
                     if(!animate){
+                        let x = $event.offsetX;
+                        let y = $event.offsetY;
+                        socket.emit('animate' , { x, y });
+
                         animate = true;
-                        $('#'+ socket.id).animate({'left': $event.offsetX , 'top': $event.offsetY } , () => {
+                        $('#'+ socket.id).animate({'left': x , 'top': y } , () => {
                             animate = false;
                         });
                     }

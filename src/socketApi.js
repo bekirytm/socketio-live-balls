@@ -23,7 +23,7 @@ io.on('connection' , (socket) => {
         //Burada iki farklı objeyi birleştiriyoruz. (kullanıcıdan gelen username , default veriler )
         const userData = Object.assign(data , defaultData);
         users[socket.id] = userData;   //Bu array'in içine attık.
-        console.log(users);
+        // console.log(users);
 
         socket.broadcast.emit('newUser' , users[socket.id] );   //Kullanıcı giriş yaptığında diğerlerine söyleme işlemi
         socket.emit('initPlayers' , users); //O kullanıcıya mesaj gönderme
@@ -34,9 +34,22 @@ io.on('connection' , (socket) => {
     socket.on('disconnect' , () => {
         socket.broadcast.emit('disUser' , users[socket.id]);
         delete users[socket.id];
-
-        console.log(users);
+        // console.log(users);
     });
+
+    //Kullanıcı hareketlerinin herkese gönderilmesi
+    socket.on('animate' , (data) => {
+        users[socket.id].position.x = data.x;
+        users[socket.id].position.y = data.y;
+
+        socket.broadcast.emit('animate' , {
+            socketId: socket.id,
+            x: data.x,
+            y: data.y
+        });
+
+    });
+
 });
 
 module.exports = socketApi;
