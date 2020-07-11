@@ -8,6 +8,9 @@ socketApi.io = io;
 
 const users = { };
 
+//helpers
+const randomColor = require('../helpers/randomColor');
+
 io.on('connection' , (socket) => {
     console.log("Bir kullanıcı bağlandı");
 
@@ -17,7 +20,8 @@ io.on('connection' , (socket) => {
             position : {
                 x: 0,
                 y: 0
-            }
+            },
+            color: randomColor()
         };
 
         //Burada iki farklı objeyi birleştiriyoruz. (kullanıcıdan gelen username , default veriler )

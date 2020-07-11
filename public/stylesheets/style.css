@@ -36,6 +36,19 @@ body{
 .red {
   background-color: #e74c3c;
 }
+.yellow {
+  background-color: #F9C60D;
+}
+.orange {
+  background-color: #F98A0D;
+}
+.black {
+  background-color: #000000;
+}
+.grey {
+   background-color: #827373;
+ }
+
 
 .circle .relative{
   position: relative;
