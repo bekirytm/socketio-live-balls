@@ -1,6 +1,6 @@
 //Burası Websocket Client Tarafı
 
-app.controller('indexController' , ['$scope' , 'indexFactory', ($scope , indexFactory) => {        //Bunu da sayfamıza dahil ediyoruz.(layout.pug)
+app.controller('indexController' , ['$scope' , 'indexFactory', 'configFactory' , ($scope , indexFactory , configFactory) => {        //Bunu da sayfamıza dahil ediyoruz.(layout.pug)
 
     $scope.messages = [ ];
     $scope.players = { };
@@ -36,7 +36,8 @@ app.controller('indexController' , ['$scope' , 'indexFactory', ($scope , indexFa
         };
 
         try{
-            const socket = await indexFactory.connectSocket('http://localhost:3000' , connectOptions);
+            const socketUrl = await configFactory.getConfig();
+            const socket = await indexFactory.connectSocket(socketUrl.data.socketUrl , connectOptions);
             socket.emit('newUser' ,  { username });
 
             socket.on('initPlayers' , (players) => {
