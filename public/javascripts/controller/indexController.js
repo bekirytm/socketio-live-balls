@@ -63,7 +63,7 @@ app.controller('indexController' , ['$scope' , 'indexFactory', ($scope , indexFa
                 const messageData = {
                     type: {
                         code: 0,        // server or user message
-                        message: 1      // login or disconnect message
+                        message: 0      // login or disconnect message
                     },
                     username: data.username
                 };
